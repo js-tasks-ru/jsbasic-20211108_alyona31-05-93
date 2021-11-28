@@ -1,7 +1,7 @@
 let calculator = {
   read(x,y){
-    calculator.a = x;
-    calculator.b = y;
+    this.a = x;
+    this.b = y;
   },
   sum(){
     return this.a + this.b;
