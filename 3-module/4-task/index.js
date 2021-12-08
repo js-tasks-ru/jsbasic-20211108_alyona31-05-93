@@ -1,3 +1,7 @@
 function showSalary(users, age) {
-  // ваш код...
+  return users.filter((user) => {
+    return user.age <= age;
+  }).map((user)=>`${user.name}, ${user.balance}`).reduce((accum, cur) => {
+    return accum + "\n" + cur;
+  });
 }
