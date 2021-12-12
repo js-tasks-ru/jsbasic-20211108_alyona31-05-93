@@ -5,46 +5,42 @@ function initCarousel() {
 
   const carouselOffset = carousel.offsetWidth; // ширина слайда
   const carouselItemsCount = carousel.querySelectorAll(".carousel__slide").length; // кол-во слайдов
-  const rightBorder = 0;
-  const leftBorder = -1 * carouselOffset * (carouselItemsCount - 1);
 
-  const regex = /translateX\((?<translateX>-?\d+)px\)/;
+  const leftmostSlideIndex = 0;
+  const rightmostSlideIndex = carouselItemsCount - 1;
 
-  leftButton.style.display = 'none';
+  let currentSlide = leftmostSlideIndex;
 
-  rightButton.onclick = () => {
-    leftButton.style.display = ''; // левая кнопка будет доступна
+  updateVisual();
 
-    let translateX = 0;
+  rightButton.onclick = () => moveRight();
 
-    let currentTransform = carousel.style.transform;
-    if (regex.test(currentTransform)) {
-      translateX = Number(regex.exec(currentTransform).groups.translateX);
-    }
+  leftButton.onclick = () => moveLeft();
 
-    let offset = translateX - carouselOffset;
-    carousel.style.transform = `translateX(${offset}px)`;
+  function moveLeft() {
+    currentSlide--;
+    updateVisual();
+  }
 
-    if (offset <= leftBorder) {
-      rightButton.style.display = 'none';
-    }
-  };
+  function moveRight() {
+    currentSlide++;
+    updateVisual();
+  }
 
-  leftButton.onclick = () => {
-    rightButton.style.display = ''; // правая кнопка будет доступна
-
-    let translateX = 0;
-
-    let currentTransform = carousel.style.transform;
-    if (regex.test(currentTransform)) {
-      translateX = Number(regex.exec(currentTransform).groups.translateX);
-    }
-
-    let offset = translateX + carouselOffset;
-    carousel.style.transform = `translateX(${offset}px)`;
-
-    if (offset >= rightBorder) {
+  function updateVisual() {
+    if (currentSlide === leftmostSlideIndex) {
       leftButton.style.display = 'none';
+    } else {
+      leftButton.style.display = '';
     }
-  };
+
+    if (currentSlide === rightmostSlideIndex) {
+      rightButton.style.display = 'none';
+    } else {
+      rightButton.style.display = '';
+    }
+
+    let offset = currentSlide * carouselOffset * -1;
+    carousel.style.transform = `translateX(${offset}px)`;
+  }
 }
