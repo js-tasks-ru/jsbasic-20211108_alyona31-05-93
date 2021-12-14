@@ -27,7 +27,7 @@ export default class ProductCard {
   #getDivLayout = (product) => `
     <div class="card">
       <div class="card__top">
-        <img src="/assets/images/products/${product.image}" class="card__image" alt="product">
+        <img src="/assets/images/products/${product.image}" class="card__image" alt="${product.name}">
         <span class="card__price">€${product.price.toFixed(2)}</span>
       </div>
       <div class="card__body">
