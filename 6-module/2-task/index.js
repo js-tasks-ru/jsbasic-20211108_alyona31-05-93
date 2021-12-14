@@ -19,7 +19,7 @@ export default class ProductCard {
 
   #createContainer = (product) => {
     let container = createElement(this.#getDivLayout(product));
-    container.querySelector('.card__button').addEventListener('click', () => this.#container.dispatchEvent(this.#productAddEvent));
+    container.querySelector('.card__button').addEventListener('click', (event) => event.currentTarget.dispatchEvent(this.#productAddEvent));
 
     return container;
   };
