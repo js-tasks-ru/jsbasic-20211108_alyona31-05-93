@@ -14,11 +14,15 @@
  */
 export default class UserTable {
   #items = null;
-  elem = null;
+  #table = null;
+
+  get elem() {
+    return this.#table;
+  }
 
   constructor(rows) {
     let id = 0;
-    this.elem = document.createElement('table');
+    this.#table = document.createElement('table');
     this.#items = rows.map(row => {
       return {row: row, id: id++};
     });
@@ -26,10 +30,10 @@ export default class UserTable {
   }
 
   #render() {
-    this.elem.innerHTML = this.#renderTableContent(this.#items);
+    this.#table.innerHTML = this.#renderTableContent(this.#items);
 
     //#region клики на кнопки
-    let buttons = this.elem.querySelectorAll('.remove-row__button');
+    let buttons = this.#table.querySelectorAll('.remove-row__button');
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener('click', this.#onRemoveRowButtonClick);
     }
